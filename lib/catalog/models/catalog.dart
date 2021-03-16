@@ -22,7 +22,7 @@ class Catalog extends Equatable {
     'Item O',
   ];
 
-  Item getById(int id) => Item(id, _itemNames[id % _itemNames.length]);
+  Item getById(int id) => Item(id, _itemNames[id % _itemNames.length], id + 56);
 
   Item getByPosition(int position) => getById(position);
 
