@@ -23,10 +23,9 @@ class MyCatalog extends StatelessWidget {
               if (state is CatalogLoaded) {
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (context, index) => _MyListItem(
-                      state.catalog.getByPosition(index),
-                    ),
-                  ),
+                      (context, index) =>
+                          _MyListItem(state.catalog.getByPosition(index)),
+                      childCount: state.catalog.getLength()),
                 );
               }
               return const Text('Something went wrong!');
