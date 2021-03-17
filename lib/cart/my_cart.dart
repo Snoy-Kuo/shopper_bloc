@@ -72,11 +72,15 @@ class _CartList extends StatelessWidget {
         trailing: IconButton(
           icon: Icon(Icons.remove_circle_outline),
           onPressed: () {
-            context.read<CartBloc>().add(CartItemRemoved(cart.items[index]));
+            context.read<CartBloc>().add(CartItemRemoved(cart.items[index].info));
           },
         ),
         title: Text(
-          cart.items[index].name,
+          cart.items[index].info.name,
+          style: itemNameStyle,
+        ),
+        subtitle: Text(
+          '+${cart.items[index].volume}',
           style: itemNameStyle,
         ),
       ),

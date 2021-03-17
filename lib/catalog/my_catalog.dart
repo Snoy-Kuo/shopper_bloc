@@ -51,18 +51,38 @@ class _AddButton extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         if (state is CartLoaded) {
-          var isInCart = state.cart.items.contains(item);
+          //var isInCart = state.cart.items.contains(item);
           return TextButton(
             style: TextButton.styleFrom(onSurface: theme.primaryColor),
-            onPressed: isInCart
-                ? null
-                : () => context.read<CartBloc>().add(CartItemAdded(item)),
-            child: isInCart
-                ? const Icon(Icons.check, semanticLabel: 'ADDED')
-                : const Text('ADD'),
+            onPressed: () => context.read<CartBloc>().add(CartItemAdded(item)),
+            child: const Text('ADD'),
           );
         }
         return const Text('Something went wrong!');
+      },
+    );
+  }
+}
+
+class _StockText extends StatelessWidget {
+  const _StockText({Key? key, required this.item}) : super(key: key);
+
+  final Item item;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme.headline6;
+    return BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) {
+        var stock = 0;
+        if (state is CartLoaded) {
+          stock = state.cart.items
+              .firstWhere((cartItem) => cartItem.info.id == item.id,
+                  orElse: () => CartItem(item, 0))
+              .volume;
+        }
+        return Text('+$stock',
+            style: textTheme!.copyWith(fontSize: 16, color: item.color));
       },
     );
   }
@@ -104,6 +124,8 @@ class _MyListItem extends StatelessWidget {
             SizedBox(width: 10),
             Text('\$ ${item.price}',
                 style: textTheme!.copyWith(fontSize: 16, color: item.color)),
+            SizedBox(width: 10),
+            _StockText(item: item),
             const SizedBox(width: 24),
             _AddButton(item: item),
           ],
