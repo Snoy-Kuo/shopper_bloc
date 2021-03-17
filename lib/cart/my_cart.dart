@@ -28,18 +28,27 @@ class _CartBody extends StatelessWidget {
           valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
         ));
       } else if (state is CartLoaded) {
-        return Column(
-          children: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: _CartList(cart: state.cart),
+        if (state.cart.items.isEmpty) {
+          return Center(
+              child: Text('Nothing in the cart..',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline1!
+                      .copyWith(fontSize: 35)));
+        } else {
+          return Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: _CartList(cart: state.cart),
+                ),
               ),
-            ),
-            const Divider(height: 4, color: Colors.black),
-            _CartTotal(cart: state.cart)
-          ],
-        );
+              const Divider(height: 4, color: Colors.black),
+              _CartTotal(cart: state.cart)
+            ],
+          );
+        }
       } else {
         return const Text('Something went wrong!');
       }
