@@ -24,9 +24,10 @@ class _CartBody extends StatelessWidget {
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
       if (state is CartLoading) {
         return const Center(
+            key: Key('cart_loading'),
             child: CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-        ));
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            ));
       } else if (state is CartLoaded) {
         if (state.cart.items.isEmpty) {
           return Center(
@@ -72,7 +73,9 @@ class _CartList extends StatelessWidget {
         trailing: IconButton(
           icon: Icon(Icons.remove_circle_outline),
           onPressed: () {
-            context.read<CartBloc>().add(CartItemRemoved(cart.items[index].info));
+            context
+                .read<CartBloc>()
+                .add(CartItemRemoved(cart.items[index].info));
           },
         ),
         title: Text(

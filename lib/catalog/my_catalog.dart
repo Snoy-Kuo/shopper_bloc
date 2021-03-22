@@ -16,6 +16,7 @@ class MyCatalog extends StatelessWidget {
               if (state is CatalogLoading) {
                 return const SliverFillRemaining(
                   child: Center(
+                    key: Key('catalog_loading'),
                     child: CircularProgressIndicator(),
                   ),
                 );
@@ -28,7 +29,8 @@ class MyCatalog extends StatelessWidget {
                       childCount: state.catalog.getLength()),
                 );
               }
-              return const Text('Something went wrong!');
+              return const SliverFillRemaining(
+                  child: Center(child: Text('Something went wrong!')));
             },
           ),
         ],
@@ -48,7 +50,8 @@ class _AddButton extends StatelessWidget {
     return BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         if (state is CartLoading) {
-          return const CircularProgressIndicator();
+          return const CircularProgressIndicator(
+              key: Key('catalog_item_loading'));
         }
         if (state is CartLoaded) {
           //var isInCart = state.cart.items.contains(item);
@@ -58,7 +61,7 @@ class _AddButton extends StatelessWidget {
             child: const Text('ADD'),
           );
         }
-        return const Text('Something went wrong!');
+        return const Text('cart accident!');
       },
     );
   }

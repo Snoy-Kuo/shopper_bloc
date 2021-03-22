@@ -18,7 +18,10 @@ Shopper App using BLoC to manage state.
  - [ColoredBox](https://api.flutter.dev/flutter/widgets/ColoredBox-class.html)
  - [styleFrom](https://api.flutter.dev/flutter/material/TextButton/styleFrom.html)
  - [ElevatedButton](https://api.flutter.dev/flutter/material/ElevatedButton-class.html)
-
+ - [bloc_test](https://pub.dev/packages/bloc_test)
+ - [mocktail](https://pub.dev/packages/mocktail)
+ - [integration_test](https://pub.dev/packages/integration_test)
+ 
 ## Try
 
  - set different prices for different items.
